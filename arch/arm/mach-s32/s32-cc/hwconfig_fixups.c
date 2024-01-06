@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-2.0+
 /*
- * Copyright 2022-2023 NXP
+ * Copyright 2022-2024 NXP
  */
 #include <common.h>
 #include <fdt_support.h>
@@ -1177,6 +1177,14 @@ static int apply_hwconfig_fixups(bool fdt, void *blob)
 	};
 
 	for (id = 0; id <= 1; id++) {
+		ret = skip_dts_nodes_config(&root, id, &skip);
+		/* Go to next SerDes if 'skip' is true */
+		if (skip || ret)
+			continue;
+
+		/* Disable PCIe and SGMII XPCS interfaces if a SerDes is missing
+		 * from hwconfig
+		 */
 		if (!s32_serdes_is_hwconfig_instance_enabled(id)) {
 			disable_serdes_pcie_nodes(&root, id);
 			set_xpcs_config_sgmii(&root, id, 0, false, true);
@@ -1184,6 +1192,9 @@ static int apply_hwconfig_fixups(bool fdt, void *blob)
 			continue;
 		}
 
+		/* Disable PCIe and SGMII XPCS interfaces if a SerDes configuration
+		 * is invalid
+		 */
 		if (!s32_serdes_is_cfg_valid(id)) {
 			disable_serdes_pcie_nodes(&root, id);
 			set_xpcs_config_sgmii(&root, id, 0, false, true);
@@ -1192,13 +1203,6 @@ static int apply_hwconfig_fixups(bool fdt, void *blob)
 			       id);
 			continue;
 		}
-
-		ret = skip_dts_nodes_config(&root, id, &skip);
-		/* Either if we manage to disable the node or not, go to next node
-		 * if 'skip' is true
-		 */
-		if (skip || ret)
-			continue;
 
 		ret = prepare_pcie_node(&root, id);
 		if (ret)
