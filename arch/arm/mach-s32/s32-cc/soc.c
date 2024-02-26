@@ -228,8 +228,10 @@ static int early_mmu_init(void)
 
 static void clear_early_mmu_settings(void)
 {
+#if defined(CONFIG_ARM64)
 	/* Reset fillptr to allow reinit of page tables */
 	gd->new_gd->arch.tlb_fillptr = (uintptr_t)NULL;
+#endif
 
 	icache_disable();
 	dcache_disable();
