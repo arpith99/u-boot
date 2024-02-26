@@ -6,12 +6,13 @@
 #ifndef __BOOT0_H
 #define __BOOT0_H
 
-	ldr x0, =__bss_start
-	ldr x1, =__bss_end
+	ldr r0, =__bss_start
+	ldr r1, =__bss_end
+	ldr r2, =0x0
 clear_loop:
-	str xzr, [x0], #8
-	cmp x0, x1
-	b.lo    clear_loop
+	str r2, [r0], #4
+	cmp r0, r1
+	blo    clear_loop
 
 	b reset
 
