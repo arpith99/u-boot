@@ -295,12 +295,12 @@ void invalidate_dcache_all(void)
 {
 }
 
+#endif
+
 void mmu_set_region_dcache_behaviour(phys_addr_t start, size_t size,
 				     enum dcache_option option)
 {
 }
-
-#endif
 
 #if !CONFIG_IS_ENABLED(SYS_ICACHE_OFF)
 
