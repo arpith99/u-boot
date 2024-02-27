@@ -113,6 +113,7 @@ void sysreset_walk_halt(enum sysreset_t type)
 	hang();
 }
 
+#if 0
 /**
  * reset_cpu() - calls sysreset_walk(SYSRESET_WARM)
  */
@@ -120,6 +121,7 @@ void reset_cpu(void)
 {
 	sysreset_walk_halt(SYSRESET_WARM);
 }
+#endif
 
 
 #if IS_ENABLED(CONFIG_SYSRESET_CMD_RESET)
