@@ -7,6 +7,7 @@
 #include <config.h>
 #include <asm/assembler.h>
 #include <linux/linkage.h>
+#include <asm-offsets.h>
 
 .type __hard_fault_entry, %function
 __hard_fault_entry:
