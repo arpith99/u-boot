@@ -10,7 +10,7 @@
 #include <misc.h>
 #include <nvmem.h>
 #include <asm/system.h>
-#include <asm/armv8/cpu.h>
+//#include <asm/armv8/cpu.h>
 #include <dm/uclass.h>
 #include <dt-bindings/clock/s32cc-scmi-clock.h>
 
@@ -21,6 +21,26 @@ struct cpu_s32cc_plat {
 	u32 max_freq;
 	u32 mpidr;
 };
+
+static inline bool is_cortex_a53(void)
+{
+	return 0;
+}
+
+static inline unsigned long read_mpidr(void)
+{
+	return 0;
+}
+
+static inline unsigned long	read_core_midr_variant(void)
+{
+	return 0;
+}
+
+static inline unsigned long	read_core_midr_revision(void)
+{
+	return 0;
+}
 
 static struct udevice *get_clk_device(void)
 {
