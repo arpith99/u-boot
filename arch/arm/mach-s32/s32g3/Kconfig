@@ -39,6 +39,14 @@ config TARGET_S32G3XXAEVB3
 	  I2C and DSPI.
 	select NXP_S32GEVB3_BOARD
 
+config TARGET_ME_SV62
+	bool "Support Mobileye SV62 board"
+	help
+	  This board is based on S32G398A SoC. It is equipped with
+	  2 GB of RAM, 256MB of QSPI memory, 64GB of eMMC memory, VR5510 PMIC,
+	  88Q5192 Ethernet Switch, serial port and I2C.
+	select ME_SV62_BOARD
+
 config TARGET_S32G399AEMU
 	bool "Support S32G399A ZeBu"
 	select TARGET_TYPE_S32CC_EMULATOR
@@ -56,5 +64,7 @@ source "board/nxp/s32g399ardb3/Kconfig"
 source "board/nxp/s32g3xxaevb/Kconfig"
 source "board/nxp/s32g3xxaevb3/Kconfig"
 source "board/nxp/s32g399aemu/Kconfig"
+
+source "board/mobileye/sv62/Kconfig"
 
 endif

@@ -1,0 +1,46 @@
+# Copyright 2024 Mobileye
+
+if TARGET_ME_SV62
+
+config SYS_VENDOR
+	default "mobileye"
+
+config SYS_CONFIG_NAME
+	default "me-sv62"
+
+config SYS_BOARD
+	default "sv62"
+
+# Micron MT53E512M32D1ZW-046 AAT:B
+config NR_DRAM_BANKS
+	default 1
+
+config ENV_SECT_SIZE
+	default 0x10000 if QSPI_BOOT
+
+config SYS_EEPROM_PAGE_WRITE_DELAY_MS
+	default 10
+
+config SYS_EEPROM_SIZE
+	default 128
+
+config S32CC_HWCONFIG
+	default "serdes0:mode=pcie&xpcs1,clock=int,fmhz=100;pcie0:mode=rc;xpcs0_1:speed=2G5;serdes1:mode=xpcs0&xpcs1,clock=int,fmhz=125;xpcs1_0:speed=2G5;xpcs1_1:speed=2G5" #if (PCI_S32CC && NXP_PFENG)
+
+config ME_SV62_BOARD
+	bool
+	default n
+	imply ADC
+	imply CMD_EEPROM
+	imply CMD_PMIC
+	imply DM_PMIC
+	imply DM_PMIC_VR5510
+	imply I2C_EEPROM
+	imply NXP_S32CC_BOARD_COMMON
+	imply SARADC_S32CC
+	select SPI_FLASH_STMICRO
+	select SPI_FLASH_MT35XU
+	select SPI_FLASH_SOFT_RESET
+	select SPI_FLASH_SOFT_RESET_ON_BOOT
+
+endif
